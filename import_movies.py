@@ -6,7 +6,7 @@ import math
 url_base = "http://127.0.0.1:8000/"
 
 '''
-df_movies = pd.read_excel('backend\Aposcar.xlsx', sheet_name='movies')
+df_movies = pd.read_excel('Aposcar.xlsx', sheet_name='movies')
 url_movies = f"{url_base}api/movies"
 
 for ind in df_movies.index:
@@ -23,7 +23,7 @@ for ind in df_movies.index:
     post_response_json = post_response.json()
     print(post_response_json)
 
-df_categories = pd.read_excel('backend\Aposcar.xlsx', sheet_name='categories')
+df_categories = pd.read_excel('Aposcar.xlsx', sheet_name='categories')
 url_categories = f"{url_base}api/categories"
 
 for ind in df_categories.index:
@@ -50,7 +50,7 @@ response = requests.get(url_categories)
 response_json = response.json()
 df_categories = pd.DataFrame(response_json['categories'])
 
-df_receivers = pd.read_excel('backend\Aposcar.xlsx', sheet_name='receivers')
+df_receivers = pd.read_excel('Aposcar.xlsx', sheet_name='receivers')
 url_receivers = f"{url_base}api/receivers"
 
 for ind in df_receivers.index:
