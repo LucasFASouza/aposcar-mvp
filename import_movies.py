@@ -2,10 +2,8 @@ import pandas as pd
 import requests
 import math
 
-
 url_base = "http://127.0.0.1:8000/"
 
-'''
 df_movies = pd.read_excel('Aposcar.xlsx', sheet_name='movies')
 url_movies = f"{url_base}api/movies"
 
@@ -38,7 +36,6 @@ for ind in df_categories.index:
 
     post_response_json = post_response.json()
     print(post_response_json)
-'''
 
 url_movies = f"{url_base}api/movies"
 response = requests.get(url_movies)

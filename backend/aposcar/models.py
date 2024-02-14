@@ -43,8 +43,13 @@ class Receiver(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return f'{self.name} - {self.movie}'
+    def __str__(self):    
+        if self.description:
+            return f'{self.name} {self.description} from {self.movie}'
+        else:
+            return f'{self.name} by {self.movie}'
+    
+
 
 
 class Bet(models.Model):
