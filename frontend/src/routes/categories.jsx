@@ -6,7 +6,6 @@ export default function Categories() {
   const [movies, setMovies] = useState([]);
 
   const [bets, setBets] = useState({});
-  const [user, setUser] = useState({});
 
   async function fetchCategories() {
     await fetch("http://127.0.0.1:8000/api/categories")
@@ -31,6 +30,11 @@ export default function Categories() {
   }, []);
 
   useEffect(() => {
+    setBets({
+      username: "",
+      pic_url: "",
+    });
+
     categories.forEach((category) => {
       setBets((prevBets) => {
         return {
@@ -38,11 +42,6 @@ export default function Categories() {
           [category.id]: null,
         };
       });
-    });
-
-    setUser({
-      username: "",
-      pic_url: "",
     });
   }, [categories, movies]);
 
@@ -63,7 +62,7 @@ export default function Categories() {
         </nav>
       </div>
       <div id="detail">
-        <Outlet context={[categories, movies]} />
+        <Outlet context={[categories, movies, bets, setBets]} />
       </div>
     </>
   );

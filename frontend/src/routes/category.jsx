@@ -5,8 +5,7 @@ export default function Category() {
   const navigate = useNavigate();
   const { categoryId } = useParams();
 
-  const [categories] = useOutletContext();
-  const [, movies] = useOutletContext();
+  const [categories, movies, bets, setBets] = useOutletContext();
 
   const [nominees, setNominees] = useState([]);
   const [category, setCategory] = useState({});
