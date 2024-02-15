@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { useOutletContext, useParams, useNavigate } from "react-router-dom";
+import { useOutletContext, useParams } from "react-router-dom";
 
 export default function Category() {
-  const navigate = useNavigate();
   const { categoryId } = useParams();
 
   const [categories, movies, bets, setBets] = useOutletContext();
@@ -11,29 +10,32 @@ export default function Category() {
   const [category, setCategory] = useState({});
 
   useEffect(() => {
-    if (categories.length === 0) {
-      navigate("/categories");
-    }
-
     let categoryObj = categories.find((category) => {
       return category.id == categoryId;
     });
 
     setCategory(categoryObj);
-  }, [categoryId]);
+  }, [categoryId, categories]);
 
   useEffect(() => {
-    if (category.nominees) {
-      let nomineesObj = movies.filter((movie) => {
-        return category.nominees.includes(movie.id);
-      });
-
-      let sortedNominees = [...nomineesObj].sort((a, b) => {
-        return a.title.localeCompare(b.title);
-      });
-      setNominees(sortedNominees);
+    if (!category?.nominees) {
+      return;
     }
-  }, [category]);
+
+    let nomineesObj = movies.filter((movie) => {
+      return category.nominees.includes(movie.id);
+    });
+
+    let sortedNominees = [...nomineesObj].sort((a, b) => {
+      return a.title.localeCompare(b.title);
+    });
+
+    setNominees(sortedNominees);
+  }, [category, movies]);
+
+  if (!category) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>

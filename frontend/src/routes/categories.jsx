@@ -49,17 +49,15 @@ export default function Categories() {
     <>
       <div id="sidebar">
         <h1>Aposcar</h1>
-        <nav>
-          <ul>
-            {categories.map((category) => {
-              return (
-                <li key={category.id}>
-                  <Link to={`/categories/${category.id}`}>{category.name}</Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
+        <div>
+          {categories.map((category) => {
+            return (
+              <div key={category.id}>
+                <Link to={`/categories/${category.id}`}>{category.name}</Link>
+              </div>
+            );
+          })}
+        </div>
       </div>
       <div id="detail">
         <Outlet context={[categories, movies, bets, setBets]} />
