@@ -5,7 +5,7 @@ export default function Root() {
     <>
       <div>
         <h1>Aposcar</h1>
-        <Link to="categories/1">Categories</Link>
+        <Link to="categories">Categories</Link>
       </div>
     </>
   );
