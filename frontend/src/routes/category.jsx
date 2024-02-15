@@ -25,11 +25,14 @@ export default function Category() {
 
   useEffect(() => {
     if (category.nominees) {
-      setNominees(
-        movies.filter((movie) => {
-          return category.nominees.includes(movie.id);
-        })
-      );
+      let nomineesObj = movies.filter((movie) => {
+        return category.nominees.includes(movie.id);
+      });
+
+      let sortedNominees = [...nomineesObj].sort((a, b) => {
+        return a.title.localeCompare(b.title);
+      });
+      setNominees(sortedNominees);
     }
   }, [category]);
 

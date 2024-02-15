@@ -2,7 +2,6 @@
 *.pyc
 *.pyo
 __pycache__/
-*.sqlite3
 
 # Static files
 staticfiles/
@@ -30,7 +29,6 @@ bower_components/
 # Logs and databases
 *.log
 *.sql
-*.db
 
 # OS generated files
 .DS_Store
