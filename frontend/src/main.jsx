@@ -4,26 +4,22 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./routes/root";
 import ErrorPage from "./error-page";
 import Category from "./routes/category";
+import Categories from "./routes/categories";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
     errorElement: <ErrorPage />,
-    loader: async () => {
-      return fetch("http://127.0.0.1:8000/api/categories").then((res) =>
-        res.json()
-      );
-    },
+  },
+  {
+    path: "/categories/",
+    element: <Categories />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "categories/:categoryId",
         element: <Category />,
-        loader: async ({ params }) => {
-          return fetch(
-            `http://127.0.0.1:8000/api/categories/${params.categoryId}`
-          );
-        },
       },
     ],
   },
