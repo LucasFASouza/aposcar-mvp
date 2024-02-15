@@ -1,16 +1,21 @@
 import { useState, useEffect } from "react";
-import { useOutletContext, useParams } from "react-router-dom";
+import { useOutletContext, useParams, useNavigate } from "react-router-dom";
 
 export default function Category() {
+  const navigate = useNavigate();
+  const { categoryId } = useParams();
+
   const [categories] = useOutletContext();
   const [, movies] = useOutletContext();
-
-  const { categoryId } = useParams();
 
   const [nominees, setNominees] = useState([]);
   const [category, setCategory] = useState({});
 
   useEffect(() => {
+    if (categories.length === 0) {
+      navigate("/categories");
+    }
+
     let categoryObj = categories.find((category) => {
       return category.id == categoryId;
     });
