@@ -2,28 +2,31 @@ import { useState, useEffect } from "react";
 import { useOutletContext, useParams } from "react-router-dom";
 
 export default function Category() {
-  const [movies] = useOutletContext();
   const [categories] = useOutletContext();
+  const [, movies] = useOutletContext();
 
-  console.log(movies);
-  console.log(categories);
-
-  const { id } = useParams();
-
-  const category = categories.find((category) => {
-    return category.id === id;
-  });
+  const { categoryId } = useParams();
 
   const [nominees, setNominees] = useState([]);
+  const [category, setCategory] = useState({});
 
   useEffect(() => {
-    console.log(movies);
-    setNominees(
-      movies.filter((movie) => {
-        return category.nominees.includes(movie.id);
-      })
-    );
-  }, [movies]);
+    let categoryObj = categories.find((category) => {
+      return category.id == categoryId;
+    });
+
+    setCategory(categoryObj);
+  }, [categoryId]);
+
+  useEffect(() => {
+    if (category.nominees) {
+      setNominees(
+        movies.filter((movie) => {
+          return category.nominees.includes(movie.id);
+        })
+      );
+    }
+  }, [category]);
 
   return (
     <div>

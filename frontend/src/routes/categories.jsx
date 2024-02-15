@@ -8,8 +8,8 @@ export default function Categories() {
   const [bets, setBets] = useState({});
   const [user, setUser] = useState({});
 
-  useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/categories")
+  async function fetchCategories() {
+    await fetch("http://127.0.0.1:8000/api/categories")
       .then((res) => {
         return res.json();
       })
@@ -17,17 +17,20 @@ export default function Categories() {
         setCategories(data.categories);
       });
 
-    fetch("http://127.0.0.1:8000/api/movies")
+    await fetch("http://127.0.0.1:8000/api/movies")
       .then((res) => {
         return res.json();
       })
       .then((data) => {
         setMovies(data.movies);
       });
+  }
+
+  useEffect(() => {
+    fetchCategories();
   }, []);
 
   useEffect(() => {
-    console.log(categories);
     categories.forEach((category) => {
       setBets((prevBets) => {
         return {
@@ -41,7 +44,7 @@ export default function Categories() {
       username: "",
       pic_url: "",
     });
-  }, [categories]);
+  }, [categories, movies]);
 
   return (
     <>
@@ -60,7 +63,7 @@ export default function Categories() {
         </nav>
       </div>
       <div id="detail">
-        <Outlet context={{movies, categories}} />
+        <Outlet context={[categories, movies]} />
       </div>
     </>
   );
