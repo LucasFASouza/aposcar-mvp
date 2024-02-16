@@ -28,7 +28,6 @@ bower_components/
 
 # Logs and databases
 *.log
-*.sql
 
 # OS generated files
 .DS_Store

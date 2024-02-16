@@ -5,12 +5,19 @@ import Root from "./routes/root";
 import ErrorPage from "./error-page";
 import Category from "./routes/category";
 import Categories from "./routes/categories";
+import Profile from "./routes/profile";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
     errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "users/:userId",
+        element: <Profile />,
+      },
+    ],
   },
   {
     path: "/categories/",

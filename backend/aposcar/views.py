@@ -12,10 +12,14 @@ class PlayerView(APIView):
     
     def post(self, request):
         player = request.data.get('player')
+
         serializer = PlayerSerializer(data=player)
         if serializer.is_valid(raise_exception=True):
-            player_saved = serializer.save()
-        return Response({"success": "Player '{}' created successfully".format(player_saved.name)})
+            serializer.save()
+
+            return Response(serializer.data, status=201)
+        
+        return Response(serializer.errors, status=400)
 
 class PlayerDetailView(APIView):
     def get(self, request, pk):
@@ -140,10 +144,14 @@ class BetsView(APIView):
     
     def post(self, request):
         bet = request.data.get('bet')
+
         serializer = BetsSerializer(data=bet)
         if serializer.is_valid(raise_exception=True):
-            bet_saved = serializer.save()
-        return Response({"success": "Bet '{}' created successfully".format(bet_saved.id)})
+            serializer.save()
+
+            return Response(serializer.data, status=201)
+        
+        return Response(serializer.errors, status=400)
     
 class BetsDetailView(APIView):
     def get(self, request, pk):

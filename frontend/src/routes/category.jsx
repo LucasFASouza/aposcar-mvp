@@ -1,20 +1,37 @@
 import { useState, useEffect } from "react";
-import { useOutletContext, useParams } from "react-router-dom";
+import { useOutletContext, useParams, useNavigate } from "react-router-dom";
 
 export default function Category() {
+  const navigate = useNavigate();
+
   const { categoryId } = useParams();
 
   const [categories, bets, setBets] = useOutletContext();
 
   const [nominees, setNominees] = useState([]);
   const [category, setCategory] = useState({});
+  const [selected, setSelected] = useState(null);
 
   useEffect(() => {
+    if (bets && !bets.username) {
+      navigate("/categories");
+    }
+
     let categoryObj = categories.find((category) => {
       return category.id == categoryId;
     });
 
     setCategory(categoryObj);
+
+    if (bets[categoryId]) {
+      let selectedNominee = categoryObj.nominees.find((nominee) => {
+        return nominee.id == bets[categoryId].id;
+      });
+
+      setSelected(selectedNominee);
+    } else {
+      setSelected(null);
+    }
   }, [categoryId, categories]);
 
   useEffect(() => {
@@ -31,32 +48,61 @@ export default function Category() {
     setNominees(sortedNominees);
   }, [category]);
 
+  function selectMovie(nominee) {
+    setSelected(nominee);
+
+    const betsObj = bets;
+    betsObj[categoryId] = nominee;
+
+    setBets(betsObj);
+  }
+
   if (!category || !nominees.length) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="ml-8">
+    <div>
       <div className="w-1/2">
-        <h1 className="text-3xl">{category.name}</h1>
-        <h3 className="pt-4 text-xl">Your bet is...</h3>
-        <h3 className="text-4xl text-yellow-300 py-2">Barbie</h3>
-        <p className="leading-5">
-          Barbie and Ken are having the time of their lives in the colorful and
-          seemingly perfect world of Barbie Land. However, when they get a
-          chance to go to the real world, they soon discover the joys and perils
-          of living among humans.
-        </p>
+        <h1 className="text-3xl font-bold">{category.name}</h1>
+        <h3 className="pt-4 text-xl font-semibold">Your bet is...</h3>
+
+        <div className="h-36">
+          {selected && (
+            <>
+              <h3 className="text-4xl text-yellow-300 font-bold">
+                {selected.title}
+              </h3>
+              <p className="leading-5">
+                {selected.description.length > 280
+                  ? `${selected.description.substring(0, 280)}...`
+                  : selected.description}
+              </p>
+            </>
+          )}
+
+          {!selected && (
+            <h3 className="text-4xl text-yellow-300 py-2 font-bold">
+              Place your bet!
+            </h3>
+          )}
+        </div>
       </div>
-      <div className="flex flex-row gap-4 py-4">
+
+      <div className="flex  gap-4 py-4">
         {nominees.map((nominee) => {
           return (
-            <div
-              key={nominee.id}
-              className="hover:border hover:border-neutral-200 hover:cursor-pointer"
-            >
-              <img src={nominee.poster_url} alt={nominee.title} />
-            </div>
+            <button key={nominee.id} onClick={() => selectMovie(nominee)}>
+              <img
+                src={nominee.poster_url}
+                alt={nominee.title}
+                className={`hover:cursor-pointer ${
+                  nominee.id === selected?.id
+                    ? "border-4 border-yellow-300"
+                    : "hover:border hover:border-neutral-200"
+                }`}
+              />
+            </button>
           );
         })}
       </div>
