@@ -9,6 +9,9 @@ export default function Categories() {
   const [categories, setCategories] = useState([]);
   const [bets, setBets] = useState({});
 
+  const pic_url =
+    "https://img.nsctotal.com.br/wp-content/uploads/2023/11/oscar-2024.jpg";
+
   async function fetchCategories() {
     await fetch("http://127.0.0.1:8000/api/categories")
       .then((res) => {
@@ -26,14 +29,14 @@ export default function Categories() {
   useEffect(() => {
     setBets({
       username: null,
-      pic_url: null,
+      pic_url: pic_url,
     });
 
     categories.forEach((category) => {
       setBets((prevBets) => {
         return {
           ...prevBets,
-          [category.id]: 1,
+          [category.id]: category.nominees[0],
         };
       });
     });
@@ -44,6 +47,73 @@ export default function Categories() {
     betsObj[categoryId] = nomineeId;
 
     setBets(betsObj);
+  }
+
+  async function submitBets(bets) {
+    const betsObj = bets;
+
+    const userObj = {
+      player: {
+        name: betsObj.username,
+        pic_url: betsObj.pic_url,
+      },
+    };
+
+    let user = {};
+
+    delete betsObj.username;
+    delete betsObj.pic_url;
+
+    await fetch("http://127.0.0.1:8000/api/players", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userObj),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        user = data;
+      });
+
+    Object.keys(betsObj).forEach((categoryId) => {
+      let category = categories.find((category) => {
+        return category.id == categoryId;
+      });
+
+      delete category.winner;
+      delete category.nominees;
+
+      const betObj = {
+        bet: {
+          player: user,
+          category: category,
+          movie: betsObj[categoryId],
+        },
+      };
+
+      console.log(betObj);
+
+      fetch("http://127.0.0.1:8000/api/bets", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(betObj),
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    });
+    navigate("/");
   }
 
   return (
@@ -73,7 +143,6 @@ export default function Categories() {
                         ? "bg-yellow-300 text-neutral-800"
                         : "hover:bg-neutral-800 "
                     }
-                    
                     `}
                   >
                     {category.name}
@@ -89,12 +158,12 @@ export default function Categories() {
 
           {!categoryId && (
             <div className="flex flex-col bg-neutral-900 rounded-md border border-neutral-800 items-center py-8">
+              <h1 className="text-3xl font-semibold text-yellow-300 pb-4">
+                Welcome to Aposcar!
+              </h1>
+
               <img
-                src={
-                  bets.pic_url
-                    ? bets.pic_url
-                    : "https://scontent.fcgh22-1.fna.fbcdn.net/v/t39.30808-6/305964648_950959589144333_4486772196625135245_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=efb6e6&_nc_eui2=AeFoO-UmUvHbkxC-9P3xc3DRInZbWpMOpMYidltakw6kxvlYGDhAFjecSxRD52yb4L37F8bdg5nD4JhdbGbAuxSm&_nc_ohc=WZu4_O-WUzQAX8OwQUH&_nc_oc=AQkABtWFUAoQm2_SimdTi2GhwyYMIyd4dqfB8tUm4FrNy1mGqXGeSVDBj9CxJ5xdQv8tbvIhXwAcMD8sy3-fY7dE&_nc_ht=scontent.fcgh22-1.fna&oh=00_AfAeISnQL5B8IpJWwLvfq61mxjujD3RVExjNMQXr50FlJA&oe=65D42C87"
-                }
+                src={bets.pic_url}
                 alt={bets.username}
                 style={{
                   borderRadius: "50%",
@@ -183,7 +252,12 @@ export default function Categories() {
 
           <div className="flex justify-end">
             {Object.values(bets).every((value) => value !== null) && (
-              <button className="py-3 px-6 rounded-md text-xl mt-6 text-yellow-300 bg-neutral-900 border border-yellow-300 hover:bg-yellow-300 hover:text-neutral-900">
+              <button
+                onClick={() => {
+                  submitBets(bets);
+                }}
+                className="py-3 px-6 rounded-md text-xl mt-6 text-yellow-300 bg-neutral-900 border border-yellow-300 hover:bg-yellow-300 hover:text-neutral-900"
+              >
                 Submit
               </button>
             )}

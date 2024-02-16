@@ -27,7 +27,7 @@ class Category(models.Model):
     ]
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
-    type = models.CharField(choices=CATEGORIES_TYPES, max_length=4)
+    type = models.CharField(choices=CATEGORIES_TYPES, max_length=4, default='Main')
 
     nominees = models.ManyToManyField(Movie, blank=True, related_name="nominations")
     winner = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name="winnings", blank=True, null=True)
@@ -48,15 +48,12 @@ class Receiver(models.Model):
             return f'{self.name} {self.description} from {self.movie}'
         else:
             return f'{self.name} by {self.movie}'
-    
-
-
 
 class Bet(models.Model):
-    player = models.ForeignKey(Player, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
-    receiver = models.ForeignKey(Receiver, on_delete=models.CASCADE, blank=True, null=True)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name="bets", blank=True, null=True)
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name="bets", blank=True, null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="bets", blank=True, null=True)
+    receiver = models.ForeignKey(Receiver, on_delete=models.CASCADE, related_name="bets", blank=True, null=True)
 
     def __str__(self):
         return f'{self.player} - {self.category} - {self.movie}'

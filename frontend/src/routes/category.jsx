@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
-import { useOutletContext, useParams } from "react-router-dom";
+import { useOutletContext, useParams, useNavigate } from "react-router-dom";
 
 export default function Category() {
+  const navigate = useNavigate();
+
   const { categoryId } = useParams();
 
   const [categories, bets, setBets] = useOutletContext();
@@ -11,6 +13,10 @@ export default function Category() {
   const [selected, setSelected] = useState(null);
 
   useEffect(() => {
+    if (bets && !bets.username) {
+      navigate("/categories");
+    }
+
     let categoryObj = categories.find((category) => {
       return category.id == categoryId;
     });
@@ -46,8 +52,8 @@ export default function Category() {
     setSelected(nominee);
 
     const betsObj = bets;
-    betsObj[categoryId] = nominee.id;
-    
+    betsObj[categoryId] = nominee;
+
     setBets(betsObj);
   }
 
