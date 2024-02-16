@@ -8,12 +8,10 @@ import {
 
 export default function Profile() {
   const { userId } = useParams();
-  const { users } = useOutletContext();
+  const [users] = useOutletContext();
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    console.log(users);
-
     if (!users) {
       return;
     }
@@ -25,7 +23,7 @@ export default function Profile() {
     setUser(userObj);
   }, [users, userId]);
 
-  if (!user.lengh) {
+  if (!user?.id) {
     return <div>Loading...</div>;
   }
 
