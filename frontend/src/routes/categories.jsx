@@ -46,11 +46,23 @@ export default function Categories() {
         <div className="w-1/4">
           <div className="border border-neutral-800">
             {categories.map((category) => {
+              console.log(category.id);
               return (
-                <Link to={`/categories/${category.id}`}>
+                <Link to={`/categories/${category.id}`} key={category.id}>
                   <div
-                    className="py-1 px-6 bg-neutral-900 border border-neutral-800 hover:bg-neutral-800 hover:cursor-pointer"
-                    key={category.id}
+                    className={`py-1 px-6 border bg-neutral-900 border-neutral-800 hover:cursor-pointer
+                    ${
+                      !bets[category.id] && categoryId != category.id
+                        ? "bg-neutral-700"
+                        : ""
+                    }
+                    ${
+                      categoryId == category.id
+                        ? "bg-yellow-300 text-neutral-800"
+                        : "hover:bg-neutral-800 "
+                    }
+                    
+                    `}
                   >
                     {category.name}
                   </div>
@@ -59,6 +71,7 @@ export default function Categories() {
             })}
           </div>
         </div>
+
         <div className="w-3/4">
           <Outlet context={[categories, bets, setBets]} />
           {!categoryId && (
