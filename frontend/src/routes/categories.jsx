@@ -63,8 +63,8 @@ export default function Categories() {
   function startVoting() {
     if (users.some((user) => user.name === bets.username)) {
       alert("Username already exists");
-    } else if (!bets.username) {
-      alert("Username is required");
+    } else if (!bets.username || !bets.pic_url) {
+      alert("Username and profile picture are required");
     } else {
       navigate(`/categories/${categories[0].id}`);
     }
