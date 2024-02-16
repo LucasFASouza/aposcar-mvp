@@ -25,7 +25,7 @@ export default function Category() {
 
     if (bets[categoryId]) {
       let selectedNominee = categoryObj.nominees.find((nominee) => {
-        return nominee.id == bets[categoryId];
+        return nominee.id == bets[categoryId].id;
       });
 
       setSelected(selectedNominee);
@@ -64,13 +64,15 @@ export default function Category() {
   return (
     <div>
       <div className="w-1/2">
-        <h1 className="text-3xl">{category.name}</h1>
-        <h3 className="pt-4 text-xl">Your bet is...</h3>
+        <h1 className="text-3xl font-bold">{category.name}</h1>
+        <h3 className="pt-4 text-xl font-semibold">Your bet is...</h3>
 
         <div className="h-36">
           {selected && (
             <>
-              <h3 className="text-4xl text-yellow-300">{selected.title}</h3>
+              <h3 className="text-4xl text-yellow-300 font-bold">
+                {selected.title}
+              </h3>
               <p className="leading-5">
                 {selected.description.length > 280
                   ? `${selected.description.substring(0, 280)}...`
@@ -80,7 +82,9 @@ export default function Category() {
           )}
 
           {!selected && (
-            <h3 className="text-4xl text-yellow-300 py-2">Place your bet!</h3>
+            <h3 className="text-4xl text-yellow-300 py-2 font-bold">
+              Place your bet!
+            </h3>
           )}
         </div>
       </div>

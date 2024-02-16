@@ -7,6 +7,7 @@ export default function Categories() {
   const { categoryId } = useParams();
 
   const [categories, setCategories] = useState([]);
+  const [users, setUsers] = useState([]);
   const [bets, setBets] = useState({});
 
   const pic_url =
@@ -19,6 +20,14 @@ export default function Categories() {
       })
       .then((data) => {
         setCategories(data.categories);
+      });
+
+    await fetch("http://127.0.0.1:8000/api/players")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setUsers(data.players);
       });
   }
 
@@ -36,7 +45,7 @@ export default function Categories() {
       setBets((prevBets) => {
         return {
           ...prevBets,
-          [category.id]: category.nominees[0],
+          [category.id]: null,
         };
       });
     });
@@ -47,6 +56,16 @@ export default function Categories() {
     betsObj[categoryId] = nomineeId;
 
     setBets(betsObj);
+  }
+
+  function startVoting() {
+    if (users.some((user) => user.name === bets.username)) {
+      alert("Username already exists");
+    } else if (!bets.username) {
+      alert("Username is required");
+    } else {
+      navigate(`/categories/${categories[0].id}`);
+    }
   }
 
   async function submitBets(bets) {
@@ -207,14 +226,10 @@ export default function Categories() {
 
               <div className="flex justify-end">
                 <button
-                  onClick={() => {
-                    if (bets.username) {
-                      navigate(`/categories/1`);
-                    }
-                  }}
+                  onClick={() => startVoting()}
                   className="py-3 px-6 rounded-md text-xl mt-6 text-yellow-300 bg-neutral-900 border border-yellow-300 hover:bg-yellow-300 hover:text-neutral-900"
                 >
-                  Submit
+                  Start
                 </button>
               </div>
             </div>
