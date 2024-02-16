@@ -138,7 +138,7 @@ export default function Categories() {
   }
 
   return (
-    <div className="bg-neutral-950 text-neutral-300 px-8 py-4">
+    <div className="bg-neutral-950 text-neutral-300 px-8 py-4 min-h-screen">
       <Link to="/" className="text-3xl text-yellow-300 hover:text-yellow-200">
         Aposcar
       </Link>

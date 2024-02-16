@@ -5,9 +5,11 @@ export default function Root() {
   const navigate = useNavigate();
 
   const [users, setUsers] = useState([]);
+  const [bets, setBets] = useState([]);
+
   const { userId } = useParams();
 
-  async function fetchUsers() {
+  async function fetchBets() {
     await fetch("http://127.0.0.1:8000/api/players")
       .then((res) => {
         return res.json();
@@ -15,14 +17,22 @@ export default function Root() {
       .then((data) => {
         setUsers(data.players);
       });
+
+    await fetch("http://127.0.0.1:8000/api/bets")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setBets(data.bets);
+      });
   }
 
   useEffect(() => {
-    fetchUsers();
+    fetchBets();
   }, []);
 
   return (
-    <div className="bg-neutral-950 text-neutral-300 px-8 py-4 h-screen">
+    <div className="bg-neutral-950 text-neutral-300 px-8 py-4 min-h-screen">
       <div className="flex justify-between">
         <Link to="/" className="text-3xl text-yellow-300 hover:text-yellow-200">
           Aposcar
@@ -64,7 +74,7 @@ export default function Root() {
         </div>
       )}
 
-      <Outlet context={[users]} />
+      <Outlet context={[users, bets]} />
     </div>
   );
 }

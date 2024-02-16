@@ -5,7 +5,7 @@ export default function ErrorPage() {
   console.error(error);
 
   return (
-    <div className="bg-neutral-950 text-neutral-300 px-8 py-4 h-screen">
+    <div className="bg-neutral-950 text-neutral-300 px-8 py-4 min-h-screen">
       <Link to="/" className="text-3xl text-yellow-300 hover:text-yellow-200">
         Aposcar
       </Link>
