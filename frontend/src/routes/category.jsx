@@ -45,12 +45,10 @@ export default function Category() {
   function selectMovie(nominee) {
     setSelected(nominee);
 
-    setBets((prevBets) => {
-      return {
-        ...prevBets,
-        [categoryId]: nominee.id,
-      };
-    });
+    const betsObj = bets;
+    betsObj[categoryId] = nominee.id;
+    
+    setBets(betsObj);
   }
 
   if (!category || !nominees.length) {
