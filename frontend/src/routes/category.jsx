@@ -36,11 +36,11 @@ export default function Category() {
   }
 
   return (
-    <div>
+    <div className="ml-8">
       <div className="w-1/2">
         <h1 className="text-3xl">{category.name}</h1>
-        <h3 className="pt-4">Your bet is...</h3>
-        <h3 className="text-3xl text-yellow-300 py-2">Barbie</h3>
+        <h3 className="pt-4 text-xl">Your bet is...</h3>
+        <h3 className="text-4xl text-yellow-300 py-2">Barbie</h3>
         <p className="leading-5">
           Barbie and Ken are having the time of their lives in the colorful and
           seemingly perfect world of Barbie Land. However, when they get a
@@ -51,7 +51,10 @@ export default function Category() {
       <div className="flex flex-row gap-4 py-4">
         {nominees.map((nominee) => {
           return (
-            <div key={nominee.id}>
+            <div
+              key={nominee.id}
+              className="hover:border hover:border-neutral-200 hover:cursor-pointer"
+            >
               <img src={nominee.poster_url} alt={nominee.title} />
             </div>
           );
