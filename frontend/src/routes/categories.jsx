@@ -13,6 +13,8 @@ export default function Categories() {
   const pic_url =
     "https://img.nsctotal.com.br/wp-content/uploads/2023/11/oscar-2024.jpg";
 
+  const [image, setImage] = useState(pic_url);
+
   async function fetchCategories() {
     await fetch("http://127.0.0.1:8000/api/categories")
       .then((res) => {
@@ -182,7 +184,7 @@ export default function Categories() {
               </h1>
 
               <img
-                src={bets.pic_url}
+                src={image}
                 alt={bets.username}
                 style={{
                   borderRadius: "50%",
@@ -208,7 +210,10 @@ export default function Categories() {
                 <input
                   type="text"
                   placeholder="Enter image URL"
-                  onChange={(e) => updateBets("pic_url", e.target.value)}
+                  onChange={(e) => {
+                    updateBets("pic_url", e.target.value);
+                    setImage(e.target.value);
+                  }}
                   className="bg-neutral-800 py-2 px-2 rounded-md border border-neutral-700 my-2 w-full"
                 />
                 <p>
@@ -240,7 +245,7 @@ export default function Categories() {
               <div>
                 {categoryId > 1 && (
                   <button
-                    className="bg-neutral-700 text-neutral-200 py-2 px-8 rounded-md"
+                    className="bg-neutral-700 text-neutral-200 py-2 px-8 rounded-md hover:bg-neutral-800 hover:text-neutral-50"
                     onClick={() =>
                       navigate(`/categories/${parseInt(categoryId) - 1}`)
                     }
@@ -253,7 +258,7 @@ export default function Categories() {
               <div>
                 {categoryId < categories.length && (
                   <button
-                    className="bg-yellow-300 text-neutral-900 py-2 px-8 rounded-md"
+                    className="bg-yellow-300 text-neutral-900 py-2 px-8 rounded-md hover:bg-yellow-200 hover:text-neutral-800"
                     onClick={() =>
                       navigate(`/categories/${parseInt(categoryId) + 1}`)
                     }
