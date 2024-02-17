@@ -9,6 +9,7 @@ export default function Categories() {
   const [categories, setCategories] = useState([]);
   const [users, setUsers] = useState([]);
   const [bets, setBets] = useState({});
+  const [complete, setComplete] = useState(false);
 
   const pic_url =
     "https://img.nsctotal.com.br/wp-content/uploads/2023/11/oscar-2024.jpg";
@@ -53,6 +54,18 @@ export default function Categories() {
     });
   }, [categories]);
 
+  useEffect(() => {
+    let complete = true;
+
+    categories.forEach((category) => {
+      if (!bets[category.id]) {
+        complete = false;
+      }
+    });
+
+    setComplete(complete);
+  }, [bets, categoryId]);
+
   function updateBets(categoryId, nomineeId) {
     const betsObj = bets;
     betsObj[categoryId] = nomineeId;
@@ -71,6 +84,11 @@ export default function Categories() {
   }
 
   async function submitBets(bets) {
+    if (!complete) {
+      alert("Please bet on all categories");
+      return;
+    }
+
     const betsObj = bets;
 
     const userObj = {
@@ -271,7 +289,7 @@ export default function Categories() {
           )}
 
           <div className="flex justify-end">
-            {Object.values(bets).every((value) => value !== null) && (
+            {(complete || categoryId >= categories.length) && (
               <button
                 onClick={() => {
                   submitBets(bets);

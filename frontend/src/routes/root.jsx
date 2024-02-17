@@ -6,6 +6,9 @@ export default function Root() {
 
   const [users, setUsers] = useState([]);
   const [bets, setBets] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [points, setPoints] = useState({});
+  const [rightAnswers, setRightAnswers] = useState({});
 
   const { userId } = useParams();
 
@@ -25,11 +28,65 @@ export default function Root() {
       .then((data) => {
         setBets(data.bets);
       });
+
+    await fetch("http://127.0.0.1:8000/api/categories")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setCategories(data.categories);
+      });
   }
 
   useEffect(() => {
     fetchBets();
   }, []);
+
+  useEffect(() => {
+    let pointsObj = {};
+    let rightAnswersObj = {};
+
+    users?.forEach((user) => {
+      pointsObj[user.name] = 0;
+      rightAnswersObj[user.name] = 0;
+    });
+
+    bets?.forEach((bet) => {
+      let category = categories.find(
+        (category) => category.id === bet.category.id
+      );
+
+      if (category?.winner?.id == bet.movie?.id) {
+        if (category?.type == "Main") {
+          pointsObj[bet.player.name] += 10;
+        } else {
+          pointsObj[bet.player.name] += 5;
+        }
+
+        rightAnswersObj[bet.player.name] += 1;
+      }
+    });
+
+    setPoints(pointsObj);
+    setRightAnswers(rightAnswersObj);
+  }, [bets]);
+
+  useEffect(() => {
+    if (!points) return;
+
+    let usersObj = users;
+
+    usersObj.sort((a, b) => points[b.name] - points[a.name]);
+    setUsers(usersObj);
+  }, [points]);
+
+  if (!categories.length || !users.length || !bets.length) {
+    return (
+      <div className="bg-neutral-950 text-neutral-300 px-8 py-4 min-h-screen">
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-neutral-950 text-neutral-300 px-8 py-4 min-h-screen">
@@ -67,6 +124,7 @@ export default function Root() {
                     }}
                   />
                   <h3 className="text-2xl">{user.name}</h3>
+                  <h3>{points[user.name]}</h3>
                 </div>
               </Link>
             );
@@ -74,7 +132,7 @@ export default function Root() {
         </div>
       )}
 
-      <Outlet context={[users, bets]} />
+      <Outlet context={[users, bets, points, rightAnswers, categories]} />
     </div>
   );
 }
