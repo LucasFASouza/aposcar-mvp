@@ -4,7 +4,7 @@ from .models import Player, Movie, Category, Receiver, Bet
 class PlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
-        fields = ('id', 'name', 'pic_url')
+        fields = ('id', 'name', 'pic_url', 'letterboxd')
 
 class MoviesSerializer(serializers.ModelSerializer):
     class Meta:

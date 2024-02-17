@@ -9,6 +9,7 @@ export default function Root() {
   const [categories, setCategories] = useState([]);
   const [points, setPoints] = useState({});
   const [rightAnswers, setRightAnswers] = useState({});
+  const [positions, setPositions] = useState({});
 
   const { userId } = useParams();
 
@@ -53,17 +54,17 @@ export default function Root() {
 
     bets?.forEach((bet) => {
       let category = categories.find(
-        (category) => category.id === bet.category.id
+        (category) => category?.id === bet.category?.id
       );
 
       if (category?.winner?.id == bet.movie?.id) {
         if (category?.type == "Main") {
-          pointsObj[bet.player.name] += 10;
+          pointsObj[bet.player?.name] += 10;
         } else {
-          pointsObj[bet.player.name] += 5;
+          pointsObj[bet.player?.name] += 5;
         }
 
-        rightAnswersObj[bet.player.name] += 1;
+        rightAnswersObj[bet.player?.name] += 1;
       }
     });
 
@@ -78,6 +79,29 @@ export default function Root() {
 
     usersObj.sort((a, b) => points[b.name] - points[a.name]);
     setUsers(usersObj);
+
+    let positionsObj = {};
+
+    let buffer = 0;
+    let lastPoints;
+    let lastPosition = 1;
+
+    usersObj.forEach((user) => {
+      if (!lastPoints) {
+        lastPoints = points[user.name];
+        positionsObj[user.name] = 1;
+      } else if (lastPoints === points[user.name]) {
+        positionsObj[user.name] = lastPosition;
+        buffer += 1;
+      } else {
+        lastPosition = lastPosition + 1 + buffer;
+        positionsObj[user.name] = lastPosition;
+        lastPoints = points[user.name];
+        buffer = 0;
+      }
+    });
+
+    setPositions(positionsObj);
   }, [points]);
 
   if (!categories.length || !users.length || !bets.length) {
@@ -113,6 +137,7 @@ export default function Root() {
                 className="hover:text-neutral-50"
               >
                 <div className="flex items-center">
+                  <h3 className="text-2xl">{positions[user.name]}</h3>
                   <img
                     src={user.pic_url}
                     alt={user.name}
@@ -132,7 +157,7 @@ export default function Root() {
         </div>
       )}
 
-      <Outlet context={[users, bets, points, rightAnswers, categories]} />
+      <Outlet context={[users, bets, points, rightAnswers, positions, categories]} />
     </div>
   );
 }

@@ -7,6 +7,7 @@ class User(AbstractUser):
 class Player(models.Model):
     name = models.CharField(max_length=100)
     pic_url = models.URLField(blank=True, null=True)
+    letterboxd = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return f'{self.name}'

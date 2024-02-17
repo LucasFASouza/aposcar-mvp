@@ -8,7 +8,8 @@ import {
 
 export default function Profile() {
   const { userId } = useParams();
-  const [users, bets, points, rightAnswers, categories] = useOutletContext();
+  const [users, bets, points, rightAnswers, positions, categories] =
+    useOutletContext();
   const [user, setUser] = useState({});
   const [userBets, setUserBets] = useState([]);
   const [winners, setWinners] = useState({});
@@ -26,7 +27,7 @@ export default function Profile() {
       return bet.player.id == userId;
     });
 
-    setUserBets(userBetsObj);    
+    setUserBets(userBetsObj);
   }, [user, bets]);
 
   useEffect(() => {
@@ -56,11 +57,26 @@ export default function Profile() {
             objectFit: "cover",
           }}
         />
-        <h1 className="text-4xl font-semibold text-neutral-100">{user.name}</h1>
-        <h2 className="text-2xl">{points[user.name]} Points</h2>
-        <h2 className="text-2xl">
-          {rightAnswers[user.name]}/23 correct answers
-        </h2>
+        <h1 className="text-4xl font-semibold text-neutral-100 my-4">
+          {user.name}
+        </h1>
+        {user.letterboxd && (
+          <Link
+            className="hover:text-neutral-50 underline"
+            to={user.letterboxd}
+            target="_blank"
+          >
+            Letterboxd
+          </Link>
+        )}
+
+        <h3 className="text-3xl my-4">{positions[user.name]}º lugar</h3>
+        <h3 className="text-2xl">{points[user.name]} Points</h3>
+        <h3 className="text-2xl">
+          {rightAnswers[user.name]}/
+          {Object.values(winners).filter((winner) => winner !== "-").length}{" "}
+          correct answers
+        </h3>
       </div>
 
       <div className="w-2/3 flex flex-col">
@@ -74,7 +90,7 @@ export default function Profile() {
           const bet = userBets.find((bet) => {
             return bet.category.id == category.id;
           });
-          
+
           return (
             <div
               key={bet.id}

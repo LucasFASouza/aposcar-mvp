@@ -12,7 +12,7 @@ export default function Categories() {
   const [complete, setComplete] = useState(false);
 
   const pic_url =
-    "https://img.nsctotal.com.br/wp-content/uploads/2023/11/oscar-2024.jpg";
+    "https://pbs.twimg.com/profile_images/1749700193333743616/K037laO3_400x400.jpg";
 
   const [image, setImage] = useState(pic_url);
 
@@ -95,6 +95,7 @@ export default function Categories() {
       player: {
         name: betsObj.username,
         pic_url: betsObj.pic_url,
+        letterboxd: betsObj.letterboxd,
       },
     };
 
@@ -102,6 +103,7 @@ export default function Categories() {
 
     delete betsObj.username;
     delete betsObj.pic_url;
+    delete betsObj.letterboxd;
 
     await fetch("http://127.0.0.1:8000/api/players", {
       method: "POST",
@@ -133,8 +135,6 @@ export default function Categories() {
         },
       };
 
-      console.log(betObj);
-
       fetch("http://127.0.0.1:8000/api/bets", {
         method: "POST",
         headers: {
@@ -144,9 +144,6 @@ export default function Categories() {
       })
         .then((res) => {
           return res.json();
-        })
-        .then((data) => {
-          console.log(data);
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -214,17 +211,17 @@ export default function Categories() {
               />
 
               <div className="my-2 w-1/3">
-                <h3 className="text-xl mt-6">Username</h3>
+                <h3 className="text-xl mt-3">Username</h3>
                 <input
                   type="text"
                   placeholder="Enter username"
                   onChange={(e) => updateBets("username", e.target.value)}
-                  className="bg-neutral-800 py-2 px-2 rounded-md border border-neutral-700 mt-2 w-full"
+                  className="bg-neutral-800 py-2 px-2 rounded-md border border-neutral-700 mt-1 w-full"
                 />
               </div>
 
               <div className="my-2 w-1/3">
-                <h3 className="text-xl mt-6">Profile Picture URL</h3>
+                <h3 className="text-xl mt-3">Profile Picture URL</h3>
                 <input
                   type="text"
                   placeholder="Enter image URL"
@@ -245,6 +242,16 @@ export default function Categories() {
                   </Link>
                   , copy the image URL and paste it here!
                 </p>
+              </div>
+
+              <div className="my-2 w-1/3">
+                <h3 className="text-xl mt-3">Letterboxd profile</h3>
+                <input
+                  type="text"
+                  placeholder="Enter your letterboxd"
+                  onChange={(e) => updateBets("letterboxd", e.target.value)}
+                  className="bg-neutral-800 py-2 px-2 rounded-md border border-neutral-700 my-2 w-full"
+                />
               </div>
 
               <div className="flex justify-end">
