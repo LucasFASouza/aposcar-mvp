@@ -8,11 +8,10 @@ import {
 
 export default function Profile() {
   const { userId } = useParams();
-  const [users, bets, points, rightAnswers, positions, categories] =
+  const [users, bets, points, rightAnswers, positions, categories, winners] =
     useOutletContext();
   const [user, setUser] = useState({});
   const [userBets, setUserBets] = useState([]);
-  const [winners, setWinners] = useState({});
 
   useEffect(() => {
     let userObj = users.find((user) => {
@@ -29,16 +28,6 @@ export default function Profile() {
 
     setUserBets(userBetsObj);
   }, [user, bets]);
-
-  useEffect(() => {
-    let winnersObj = {};
-
-    categories.forEach((category) => {
-      winnersObj[category.name] = category.winner?.title || "-";
-    });
-
-    setWinners(winnersObj);
-  }, [categories]);
 
   if (!user?.id || !userBets.length) {
     return <div>Loading...</div>;
