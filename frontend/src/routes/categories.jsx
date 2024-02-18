@@ -267,36 +267,32 @@ export default function Categories() {
 
           {categoryId && (
             <div className="flex justify-between">
-              <div>
-                {categoryId > 1 && (
-                  <button
-                    className="bg-neutral-700 text-neutral-200 py-2 px-8 rounded-md hover:bg-neutral-800 hover:text-neutral-50"
-                    onClick={() =>
-                      navigate(`/categories/${parseInt(categoryId) - 1}`)
-                    }
-                  >
-                    Back
-                  </button>
-                )}
-              </div>
+              <button
+                className="bg-neutral-700 text-neutral-200 py-2 px-8 rounded-md hover:bg-neutral-800 hover:text-neutral-50"
+                onClick={() => {
+                  categoryId > 1
+                    ? navigate(`/categories/${parseInt(categoryId) - 1}`)
+                    : navigate(`/categories/${categories.length}`);
+                }}
+              >
+                Back
+              </button>
 
-              <div>
-                {categoryId < categories.length && (
-                  <button
-                    className="bg-yellow-300 text-neutral-900 py-2 px-8 rounded-md hover:bg-yellow-200 hover:text-neutral-800"
-                    onClick={() =>
-                      navigate(`/categories/${parseInt(categoryId) + 1}`)
-                    }
-                  >
-                    Next
-                  </button>
-                )}
-              </div>
+              <button
+                className="bg-yellow-300 text-neutral-900 py-2 px-8 rounded-md hover:bg-yellow-200 hover:text-neutral-800"
+                onClick={() => {
+                  categoryId < categories.length
+                    ? navigate(`/categories/${parseInt(categoryId) + 1}`)
+                    : navigate(`/categories/1`);
+                }}
+              >
+                Next
+              </button>
             </div>
           )}
 
           <div className="flex justify-end">
-            {(complete || categoryId >= categories.length) && (
+            {complete && (
               <button
                 onClick={() => {
                   submitBets(bets);
