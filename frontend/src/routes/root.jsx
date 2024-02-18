@@ -16,7 +16,7 @@ export default function Root() {
   const { userId } = useParams();
 
   async function fetchBets() {
-    await fetch("http://127.0.0.1:8000/api/players")
+    await fetch("https://aposcar-api.fly.dev/api/players")
       .then((res) => {
         return res.json();
       })
@@ -24,7 +24,7 @@ export default function Root() {
         setUsers(data.players);
       });
 
-    await fetch("http://127.0.0.1:8000/api/bets")
+    await fetch("https://aposcar-api.fly.dev/api/bets")
       .then((res) => {
         return res.json();
       })
@@ -32,7 +32,7 @@ export default function Root() {
         setBets(data.bets);
       });
 
-    await fetch("http://127.0.0.1:8000/api/categories")
+    await fetch("https://aposcar-api.fly.dev/api/categories")
       .then((res) => {
         return res.json();
       })
@@ -132,7 +132,7 @@ export default function Root() {
     setWinners(winnersObj);
   }, [categories]);
 
-  if (!categories.length || !users.length || !bets.length) {
+  if (!categories.length) {
     return (
       <div className="bg-neutral-950 text-neutral-300 px-8 py-4 min-h-screen">
         <h1>Loading...</h1>
@@ -147,12 +147,14 @@ export default function Root() {
           Aposcar
         </Link>
 
-        <button
-          className="bg-yellow-300 text-neutral-900 py-2 px-6 rounded-md hover:bg-yellow-200 hover:text-neutral-800"
-          onClick={() => navigate("/categories/")}
-        >
-          Place your bets
-        </button>
+        {Object.values(winners).every((value) => value === "-") && (
+          <button
+            className="bg-yellow-300 text-neutral-900 py-2 px-6 rounded-md hover:bg-yellow-200 hover:text-neutral-800"
+            onClick={() => navigate("/categories/")}
+          >
+            Place your bets
+          </button>
+        )}
       </div>
       <div>
         {!userId && (
@@ -183,7 +185,7 @@ export default function Root() {
                         </div>
                         <div className="flex">
                           <div
-                            className="h-2 bg-yellow-400 rounded-s-md"
+                            className="h-2 bg-yellow-400 rounded-md"
                             style={{
                               width: `${
                                 (points[user.name] / totalPoints) * 100

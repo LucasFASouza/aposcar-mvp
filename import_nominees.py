@@ -2,7 +2,7 @@ import pandas as pd
 import requests
 import math
 
-url_base = "http://127.0.0.1:8000/"
+url_base = "https://aposcar-api.fly.dev/"
 
 df_nominees = pd.read_excel('Aposcar.xlsx', sheet_name='categories')
 

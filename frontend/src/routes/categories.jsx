@@ -17,7 +17,7 @@ export default function Categories() {
   const [image, setImage] = useState(pic_url);
 
   async function fetchCategories() {
-    await fetch("http://127.0.0.1:8000/api/categories")
+    await fetch("https://aposcar-api.fly.dev/api/categories")
       .then((res) => {
         return res.json();
       })
@@ -25,7 +25,7 @@ export default function Categories() {
         setCategories(data.categories);
       });
 
-    await fetch("http://127.0.0.1:8000/api/players")
+    await fetch("https://aposcar-api.fly.dev/api/players")
       .then((res) => {
         return res.json();
       })
@@ -105,7 +105,7 @@ export default function Categories() {
     delete betsObj.pic_url;
     delete betsObj.letterboxd;
 
-    await fetch("http://127.0.0.1:8000/api/players", {
+    await fetch("https://aposcar-api.fly.dev/api/players", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -135,7 +135,7 @@ export default function Categories() {
         },
       };
 
-      fetch("http://127.0.0.1:8000/api/bets", {
+      fetch("https://aposcar-api.fly.dev/api/bets", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
