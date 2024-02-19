@@ -60,7 +60,7 @@ export default function Root() {
     let pointsObj = {};
     let rightAnswersObj = {};
 
-    if (!users.length || !bets.length || categories.length) return;
+    if (!users.length || !bets.length || !categories.length) return;
 
     users.forEach((user) => {
       pointsObj[user.name] = 0;
