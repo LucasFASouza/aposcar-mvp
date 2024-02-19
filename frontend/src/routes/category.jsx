@@ -64,13 +64,13 @@ export default function Category() {
   return (
     <div>
       <div className="md:w-1/2">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col items-start justify-between">
           <h1 className="text-xl lg:text-3xl font-bold">{category.name}</h1>
-          <p className="text-sm lg:text-lg">
+          <p className="text-sm lg:text-base font-light">
             {category.type == "Main" ? "(10 Points)" : "(5 Points)"}
           </p>
         </div>
-        <h3 className="pt-4 lf:text-xl font-semibold">Your bet is...</h3>
+        <h3 className="pt-4 lg:text-xl font-semibold">Your bet is...</h3>
 
         <div>
           {selected && (
