@@ -158,8 +158,8 @@ export default function Root() {
       </div>
       <div>
         {!userId && (
-          <div className="flex py-6 justify-between gap-6">
-            <div className="flex flex-col w-1/2">
+          <div className="flex py-6 justify-between gap-6 flex-col lg:flex-row">
+            <div className="flex flex-col w-full lg:w-1/2">
               {users.map((user) => {
                 return (
                   <Link
@@ -210,7 +210,7 @@ export default function Root() {
               })}
             </div>
 
-            <div className="flex flex-col w-1/2 my-1">
+            <div className="flex flex-col w-full lg:w-1/2 my-1">
               <div className="grid grid-cols-2 gap-x-2 py-3 px-6 border bg-neutral-800 border-neutral-700 text-lg rounded-t-lg">
                 <div className="font-bold text-2xl w-1/2">Category</div>
                 <div className="font-bold text-2xl w-1/2">Winner</div>

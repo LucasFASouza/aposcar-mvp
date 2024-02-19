@@ -63,11 +63,11 @@ export default function Category() {
 
   return (
     <div>
-      <div className="w-1/2">
+      <div className="md:w-1/2">
         <h1 className="text-3xl font-bold">{category.name}</h1>
         <h3 className="pt-4 text-xl font-semibold">Your bet is...</h3>
 
-        <div className="h-36">
+        <div>
           {selected && (
             <>
               <h3 className="text-4xl text-yellow-300 font-bold">
@@ -89,7 +89,7 @@ export default function Category() {
         </div>
       </div>
 
-      <div className="flex  gap-4 py-4">
+      <div className="flex gap-4 py-4">
         {nominees.map((nominee) => {
           return (
             <button key={nominee.id} onClick={() => selectMovie(nominee)}>

@@ -34,8 +34,8 @@ export default function Profile() {
   }
 
   return (
-    <div className="bg-neutral-950 text-neutral-200 py-4 flex">
-      <div className="flex flex-col items-center w-1/3 pt-32">
+    <div className="bg-neutral-950 text-neutral-200 py-4 flex flex-col lg:flex-row">
+      <div className="flex flex-col items-center w-full mb-12 lg:w-1/3 pt-32">
         <img
           src={user.pic_url}
           alt={user.name}
@@ -68,7 +68,7 @@ export default function Profile() {
         </h3>
       </div>
 
-      <div className="w-2/3 flex flex-col">
+      <div className="w-full lg:w-2/3 flex flex-col">
         <div className="grid grid-cols-3 py-3 px-6 border bg-neutral-800 border-neutral-700 text-lg rounded-t-lg">
           <h2 className="font-bold text-2xl">Category</h2>
           <h2 className="font-bold text-2xl">Your Bet</h2>

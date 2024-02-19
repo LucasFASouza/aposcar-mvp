@@ -158,8 +158,8 @@ export default function Categories() {
         Aposcar
       </Link>
 
-      <div className="flex  py-5">
-        <div className="w-1/4">
+      <div className="flex py-5 flex-col-reverse lg:flex-row gap-8">
+        <div className="w-full lg:w-1/4">
           <div className="border border-neutral-800">
             {categories.map((category) => {
               return (
@@ -189,7 +189,7 @@ export default function Categories() {
           </div>
         </div>
 
-        <div className="w-3/4 ml-8">
+        <div className="w-full lg:w-3/4">
           <Outlet context={[categories, bets, setBets]} />
 
           {!categoryId && (
@@ -210,7 +210,7 @@ export default function Categories() {
                 className="my-2"
               />
 
-              <div className="my-2 w-1/3">
+              <div className="my-2 px-8 w-full md:w-1/2 lg:w-1/3">
                 <h3 className="text-xl mt-3">Username</h3>
                 <input
                   type="text"
@@ -220,7 +220,7 @@ export default function Categories() {
                 />
               </div>
 
-              <div className="my-2 w-1/3">
+              <div className="my-2 px-8 w-full md:w-1/2 lg:w-1/3">
                 <h3 className="text-xl mt-3">Profile Picture URL</h3>
                 <input
                   type="text"
@@ -244,7 +244,7 @@ export default function Categories() {
                 </p>
               </div>
 
-              <div className="my-2 w-1/3">
+              <div className="my-2 px-8 w-full md:w-1/2 lg:w-1/3">
                 <h3 className="text-xl mt-3">Letterboxd profile</h3>
                 <input
                   type="text"
