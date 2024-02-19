@@ -135,3 +135,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'aposcar.User'
 
 CORS_ORIGIN_ALLOW_ALL = True   
+
+CSRF_TRUSTED_ORIGINS = ['https://aposcar-api.fly.dev']

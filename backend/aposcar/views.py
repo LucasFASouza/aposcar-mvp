@@ -95,8 +95,10 @@ class CategoriesDetailView(APIView):
         saved_category = Category.objects.get(pk=pk)
         data = request.data.get('category')
         serializer = CategoriesSerializer(instance=saved_category, data=data, partial=True)
+
         if serializer.is_valid(raise_exception=True):
             category_saved = serializer.save()
+            
         return Response({"success": "Category '{}' updated successfully".format(category_saved.name)})
     
     def delete(self, request, pk):
