@@ -71,10 +71,18 @@ export default function Profile() {
       </div>
 
       <div className="w-full lg:w-2/3 flex flex-col">
-        <div className="grid grid-cols-3 gap-2 text-center p-3 lg:py-3 lg:px-6 border bg-neutral-800 border-neutral-700 rounded-t-lg font-bold text-sm md:text-lg lg:text-xl">
+        <div
+          className={`grid gap-2 text-center p-3 lg:py-3 lg:px-6 border bg-neutral-800 border-neutral-700 rounded-t-lg font-bold text-sm md:text-lg lg:text-xl ${
+            Object.values(winners).every((value) => value === "-")
+              ? "grid-cols-2"
+              : "grid-cols-3"
+          }`}
+        >
           <h2>Category</h2>
           <h2>Your Bet</h2>
-          <h2>Winner</h2>
+          {!Object.values(winners).every((value) => value === "-") && (
+            <h2>Winner</h2>
+          )}
         </div>
 
         {categories.map((category) => {
@@ -85,17 +93,25 @@ export default function Profile() {
           return (
             <div
               key={bet.id}
-              className={`border grid grid-cols-3 gap-2 p-3 lg:py-3 lg:px-6 text-xs md:text-base lg:text-lg last:rounded-b-lg ${
+              className={`border grid gap-2 p-3 lg:py-3 lg:px-6 text-xs md:text-base lg:text-lg last:rounded-b-lg ${
                 winners[bet.category.name] == "-"
                   ? "bg-neutral-900 border-neutral-800"
                   : winners[bet.category.name] == bet.movie.title
                   ? "bg-green-500"
                   : "bg-red-500"
+              } ${
+                Object.values(winners).every((value) => value === "-")
+                  ? "grid-cols-2"
+                  : "grid-cols-3"
               }`}
             >
               <h3 className="font-semibold">{bet.category.name}</h3>
               <p>{getReceiver(bet.movie.title, bet.category.id)}</p>
-              <p>{getReceiver(winners[bet.category.name], bet.category.id)}</p>
+              {!Object.values(winners).every((value) => value === "-") && (
+                <p>
+                  {getReceiver(winners[bet.category.name], bet.category.id)}
+                </p>
+              )}
             </div>
           );
         })}
