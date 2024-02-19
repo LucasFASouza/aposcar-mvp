@@ -8,6 +8,8 @@ export default function Categories() {
 
   const [categories, setCategories] = useState([]);
   const [users, setUsers] = useState([]);
+  const [receivers, setReceivers] = useState([]);
+
   const [bets, setBets] = useState({});
   const [complete, setComplete] = useState(false);
 
@@ -31,6 +33,14 @@ export default function Categories() {
       })
       .then((data) => {
         setUsers(data.players);
+      });
+    
+    await fetch("https://aposcar-api.fly.dev/api/receivers")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setReceivers(data.receivers);
       });
   }
 
@@ -190,7 +200,7 @@ export default function Categories() {
         </div>
 
         <div className="w-full lg:w-3/4">
-          <Outlet context={[categories, bets, setBets]} />
+          <Outlet context={[categories, receivers, bets, setBets]} />
 
           {!categoryId && (
             <div className="flex flex-col bg-neutral-900 rounded-md border border-neutral-800 items-center py-8">

@@ -6,10 +6,11 @@ export default function Category() {
 
   const { categoryId } = useParams();
 
-  const [categories, bets, setBets] = useOutletContext();
+  const [categories, receivers, bets, setBets] = useOutletContext();
 
   const [nominees, setNominees] = useState([]);
   const [category, setCategory] = useState({});
+  const [receiversCategory, setReceivers] = useState({});
   const [selected, setSelected] = useState(null);
 
   useEffect(() => {
@@ -46,7 +47,19 @@ export default function Category() {
     });
 
     setNominees(sortedNominees);
-  }, [category]);
+
+    let receiversFiltered = receivers.filter((receiver) => {
+      return receiver.category.id == categoryId;
+    });
+
+    let receiversCategory = {};
+
+    receiversFiltered.forEach((receiver) => {
+      receiversCategory[receiver.movie.id] = receiver;
+    });
+
+    setReceivers(receiversCategory);
+  }, [category, receivers]);
 
   function selectMovie(nominee) {
     setSelected(nominee);
@@ -76,9 +89,17 @@ export default function Category() {
           {selected && (
             <>
               <h3 className="text-2xl lg:text-4xl text-yellow-300 font-bold">
-                {selected.title}
+                {receiversCategory[selected.id]
+                  ? receiversCategory[selected.id].name
+                  : selected.title}
               </h3>
-              <p className="leading-5">{selected.description}</p>
+              <p className="leading-5">
+                {receiversCategory[selected.id]
+                  ? `${receiversCategory[selected.id].description} from ${
+                      selected.title
+                    }`
+                  : selected.description}
+              </p>
             </>
           )}
 
@@ -95,7 +116,11 @@ export default function Category() {
           return (
             <button key={nominee.id} onClick={() => selectMovie(nominee)}>
               <img
-                src={nominee.poster_url}
+                src={
+                  receiversCategory[nominee.id]?.photo_url
+                    ? receiversCategory[nominee.id]?.photo_url
+                    : nominee.poster_url
+                }
                 alt={nominee.title}
                 className={`hover:cursor-pointer w-24 md:w-44 ${
                   nominee.id === selected?.id
