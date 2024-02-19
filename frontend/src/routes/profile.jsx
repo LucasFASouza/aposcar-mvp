@@ -35,23 +35,18 @@ export default function Profile() {
 
   return (
     <div className="bg-neutral-950 text-neutral-200 py-4 flex flex-col lg:flex-row">
-      <div className="flex flex-col items-center w-full mb-12 lg:w-1/3 pt-32">
+      <div className="flex flex-col items-center py-12 w-full lg:w-1/3 lg:pt-32 lg:pb-12">
         <img
           src={user.pic_url}
           alt={user.name}
-          style={{
-            borderRadius: "50%",
-            width: "250px",
-            height: "250px",
-            objectFit: "cover",
-          }}
+          className="rounded-full w-32 h-32 lg:w-48 lg:h-48 object-cover"
         />
-        <h1 className="text-4xl font-semibold text-neutral-100 my-4">
+        <h1 className="text-2xl lg:text-4xl font-semibold text-neutral-100 my-2 lg:my-4">
           {user.name}
         </h1>
         {user.letterboxd && (
           <Link
-            className="hover:text-neutral-50 underline"
+            className="hover:text-neutral-50 underline text-sm lg:text-base"
             to={user.letterboxd}
             target="_blank"
           >
@@ -59,9 +54,11 @@ export default function Profile() {
           </Link>
         )}
 
-        <h3 className="text-3xl my-4">{positions[user.name]}º lugar</h3>
-        <h3 className="text-2xl">{points[user.name]} Points</h3>
-        <h3 className="text-2xl">
+        <h3 className="text-lg lg:text-2xl my-2 lg:my-4 font-semibold">
+          {positions[user.name]}º lugar
+        </h3>
+        <h3 className="lg:text-xl">{points[user.name]} Points</h3>
+        <h3 className="lg:text-xl">
           {rightAnswers[user.name]}/
           {Object.values(winners).filter((winner) => winner !== "-").length}{" "}
           correct answers
@@ -69,10 +66,10 @@ export default function Profile() {
       </div>
 
       <div className="w-full lg:w-2/3 flex flex-col">
-        <div className="grid grid-cols-3 py-3 px-6 border bg-neutral-800 border-neutral-700 text-lg rounded-t-lg">
-          <h2 className="font-bold text-2xl">Category</h2>
-          <h2 className="font-bold text-2xl">Your Bet</h2>
-          <h2 className="font-bold text-2xl">Winner</h2>
+        <div className="grid grid-cols-3 gap-2 text-center p-3 lg:py-3 lg:px-6 border bg-neutral-800 border-neutral-700 rounded-t-lg">
+          <h2 className="font-bold lg:text-2xl">Category</h2>
+          <h2 className="font-bold lg:text-2xl">Your Bet</h2>
+          <h2 className="font-bold lg:text-2xl">Winner</h2>
         </div>
 
         {categories.map((category) => {
@@ -83,7 +80,7 @@ export default function Profile() {
           return (
             <div
               key={bet.id}
-              className={`grid grid-cols-3 py-1 px-6 border text-lg last:rounded-b-lg ${
+              className={`grid grid-cols-3 gap-2 p-3 lg:py-3 lg:px-6 text-sm border lg:text-lg last:rounded-b-lg ${
                 winners[bet.category.name] == "-"
                   ? "bg-neutral-900 border-neutral-800"
                   : winners[bet.category.name] == bet.movie.title

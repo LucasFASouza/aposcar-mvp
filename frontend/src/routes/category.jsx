@@ -64,20 +64,21 @@ export default function Category() {
   return (
     <div>
       <div className="md:w-1/2">
-        <h1 className="text-3xl font-bold">{category.name}</h1>
-        <h3 className="pt-4 text-xl font-semibold">Your bet is...</h3>
+        <div className="flex items-center justify-between">
+          <h1 className="text-xl lg:text-3xl font-bold">{category.name}</h1>
+          <p className="text-sm lg:text-lg">
+            {category.type == "Main" ? "(10 Points)" : "(5 Points)"}
+          </p>
+        </div>
+        <h3 className="pt-4 lf:text-xl font-semibold">Your bet is...</h3>
 
         <div>
           {selected && (
             <>
-              <h3 className="text-4xl text-yellow-300 font-bold">
+              <h3 className="text-2xl lg:text-4xl text-yellow-300 font-bold">
                 {selected.title}
               </h3>
-              <p className="leading-5">
-                {selected.description.length > 280
-                  ? `${selected.description.substring(0, 280)}...`
-                  : selected.description}
-              </p>
+              <p className="leading-5">{selected.description}</p>
             </>
           )}
 
@@ -89,14 +90,14 @@ export default function Category() {
         </div>
       </div>
 
-      <div className="flex gap-4 py-4">
+      <div className="flex flex-wrap gap-2 py-4 justify-center lg:justify-between lg:gap-y-8">
         {nominees.map((nominee) => {
           return (
             <button key={nominee.id} onClick={() => selectMovie(nominee)}>
               <img
                 src={nominee.poster_url}
                 alt={nominee.title}
-                className={`hover:cursor-pointer ${
+                className={`hover:cursor-pointer w-24 md:w-44 ${
                   nominee.id === selected?.id
                     ? "border-4 border-yellow-300"
                     : "hover:border hover:border-neutral-200"

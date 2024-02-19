@@ -142,8 +142,11 @@ export default function Root() {
 
   return (
     <div className="bg-neutral-950 text-neutral-300 px-8 py-4 min-h-screen">
-      <div className="flex justify-between">
-        <Link to="/" className="text-3xl text-yellow-300 hover:text-yellow-200">
+      <div className="flex justify-between items-center">
+        <Link
+          to="/"
+          className="text-2xl md:text-3xl text-yellow-300 hover:text-yellow-200"
+        >
           Aposcar
         </Link>
 
@@ -168,19 +171,19 @@ export default function Root() {
                     className="border bg-neutral-900 border-neutral-800 rounded-xl hover:bg-neutral-800 hover:border-neutral-700 p-2 my-1"
                   >
                     <div className="flex items-center">
-                      <div className="text-2xl w-12 text-center">
+                      <div className="text-lg md:text-2xl w-12 text-center">
                         {positions[user.name]}º
                       </div>
                       <img
                         src={user.pic_url}
                         alt={user.name}
-                        className="w-20 h-20 rounded-full object-cover mx-4"
+                        className="w-12 h-12 lg:w-20 lg:h-20 rounded-full object-cover mx-4"
                       />
                       <div className="w-full flex flex-col justify-between gap-3 mr-4">
                         <div className="flex justify-between items-center">
-                          <h3 className="text-2xl">{user.name}</h3>
-                          <h3 className="text-lg">
-                            {points[user.name]} points
+                          <h3 className="md:text-2xl">{user.name}</h3>
+                          <h3 className="text-sm md:text-lg">
+                            {points[user.name]} pts
                           </h3>
                         </div>
                         <div className="flex">
@@ -211,9 +214,9 @@ export default function Root() {
             </div>
 
             <div className="flex flex-col w-full lg:w-1/2 my-1">
-              <div className="grid grid-cols-2 gap-x-2 py-3 px-6 border bg-neutral-800 border-neutral-700 text-lg rounded-t-lg">
-                <div className="font-bold text-2xl w-1/2">Category</div>
-                <div className="font-bold text-2xl w-1/2">Winner</div>
+              <div className="grid grid-cols-2 gap-x-2 py-3 px-6 border bg-neutral-800 border-neutral-700 md:text-lg rounded-t-lg">
+                <div className="font-bold md:text-2xl w-1/2">Category</div>
+                <div className="font-bold md:text-2xl w-1/2">Winner</div>
               </div>
 
               {categories.map((category) => {
@@ -221,10 +224,10 @@ export default function Root() {
                   <div
                     key={category.id}
                     className={
-                      "grid grid-cols-2 gap-x-2 py-1 px-6 border text-lg last:rounded-b-lg bg-neutral-900 border-neutral-800"
+                      "grid grid-cols-2 gap-x-4 py-1 px-6 border md:text-lg last:rounded-b-lg bg-neutral-900 border-neutral-800"
                     }
                   >
-                    <div className="font-semibold">{category.name}</div>
+                    <div className="md:font-semibold">{category.name}</div>
                     <div>{winners[category.name]}</div>
                   </div>
                 );

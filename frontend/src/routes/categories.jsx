@@ -194,20 +194,14 @@ export default function Categories() {
 
           {!categoryId && (
             <div className="flex flex-col bg-neutral-900 rounded-md border border-neutral-800 items-center py-8">
-              <h1 className="text-3xl font-semibold text-yellow-300 pb-4">
+              <h1 className="text-2xl lg:text-3xl font-semibold pb-4">
                 Welcome to Aposcar!
               </h1>
 
               <img
                 src={image}
                 alt={bets.username}
-                style={{
-                  borderRadius: "50%",
-                  width: "300px",
-                  height: "300px",
-                  objectFit: "cover",
-                }}
-                className="my-2"
+                className="rounded-full object-cover w-48 h-48 lg:w-72 lg:h-72 my-2"
               />
 
               <div className="my-2 px-8 w-full md:w-1/2 lg:w-1/3">
