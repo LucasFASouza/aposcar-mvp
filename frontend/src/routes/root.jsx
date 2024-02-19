@@ -60,24 +60,26 @@ export default function Root() {
     let pointsObj = {};
     let rightAnswersObj = {};
 
-    users?.forEach((user) => {
+    if (!users.length || !bets.length) return;
+
+    users.forEach((user) => {
       pointsObj[user.name] = 0;
       rightAnswersObj[user.name] = 0;
     });
 
-    bets?.forEach((bet) => {
+    bets.forEach((bet) => {
       let category = categories.find(
-        (category) => category?.id === bet.category?.id
+        (category) => category?.id === bet.category.id
       );
 
-      if (category?.winner?.id == bet.movie?.id) {
+      if (category.winner?.id == bet.movie.id) {
         if (category?.type == "Main") {
           pointsObj[bet.player?.name] += 10;
         } else {
-          pointsObj[bet.player?.name] += 5;
+          pointsObj[bet.player.name] += 5;
         }
 
-        rightAnswersObj[bet.player?.name] += 1;
+        rightAnswersObj[bet.player.name] += 1;
       }
     });
 
