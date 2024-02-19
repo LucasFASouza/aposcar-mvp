@@ -1,9 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  useOutletContext,
-  Link,
-  useParams,
-} from "react-router-dom";
+import { useOutletContext, Link, useParams } from "react-router-dom";
 
 export default function Profile() {
   const { userName } = useParams();
@@ -75,10 +71,10 @@ export default function Profile() {
       </div>
 
       <div className="w-full lg:w-2/3 flex flex-col">
-        <div className="grid grid-cols-3 gap-2 text-center p-3 lg:py-3 lg:px-6 border bg-neutral-800 border-neutral-700 rounded-t-lg">
-          <h2 className="font-bold lg:text-2xl">Category</h2>
-          <h2 className="font-bold lg:text-2xl">Your Bet</h2>
-          <h2 className="font-bold lg:text-2xl">Winner</h2>
+        <div className="grid grid-cols-3 gap-2 text-center p-3 lg:py-3 lg:px-6 border bg-neutral-800 border-neutral-700 rounded-t-lg font-bold text-sm md:text-lg lg:text-xl">
+          <h2>Category</h2>
+          <h2>Your Bet</h2>
+          <h2>Winner</h2>
         </div>
 
         {categories.map((category) => {
@@ -89,7 +85,7 @@ export default function Profile() {
           return (
             <div
               key={bet.id}
-              className={`grid grid-cols-3 gap-2 p-3 lg:py-3 lg:px-6 text-sm border lg:text-lg last:rounded-b-lg ${
+              className={`border grid grid-cols-3 gap-2 p-3 lg:py-3 lg:px-6 text-xs md:text-base lg:text-lg last:rounded-b-lg ${
                 winners[bet.category.name] == "-"
                   ? "bg-neutral-900 border-neutral-800"
                   : winners[bet.category.name] == bet.movie.title

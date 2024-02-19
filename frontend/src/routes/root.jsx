@@ -150,7 +150,7 @@ export default function Root() {
       );
     });
 
-    return receiver ? receiver.name : movieName;
+    return receiver ? `${receiver.name} (${movieName})` : movieName;
   }
 
   if (!categories.length) {
@@ -162,7 +162,7 @@ export default function Root() {
   }
 
   return (
-    <div className="bg-neutral-950 text-neutral-300 px-8 py-4 min-h-screen">
+    <div className="bg-neutral-950 text-neutral-300 px-4 md:px-8 py-4 min-h-screen">
       <div className="flex justify-between items-center">
         <Link
           to="/"
@@ -243,7 +243,7 @@ export default function Root() {
             </div>
 
             <div className="flex flex-col w-full lg:w-1/2 my-1">
-              <div className="grid grid-cols-2 gap-x-2 py-3 px-6 border bg-neutral-800 border-neutral-700 md:text-lg rounded-t-lg">
+              <div className="grid grid-cols-2 gap-x-2 py-3 px-6 border bg-neutral-800 border-neutral-700 text-sm md:text-lg rounded-t-lg">
                 <div className="font-bold md:text-2xl w-1/2">Category</div>
                 <div className="font-bold md:text-2xl w-1/2">Winner</div>
               </div>
@@ -253,7 +253,7 @@ export default function Root() {
                   <div
                     key={category.id}
                     className={
-                      "grid grid-cols-2 gap-x-4 py-1 px-6 border md:text-lg last:rounded-b-lg bg-neutral-900 border-neutral-800"
+                      "grid grid-cols-2 gap-x-4 py-1 px-6 border text-sm md:text-lg last:rounded-b-lg bg-neutral-900 border-neutral-800"
                     }
                   >
                     <div className="md:font-semibold">{category.name}</div>
