@@ -76,6 +76,7 @@ export default function Root() {
 
   useEffect(() => {
     if (!points) return;
+    console.log(points);
 
     let usersObj = users;
 
@@ -188,7 +189,11 @@ export default function Root() {
                         </div>
                         <div className="flex">
                           <div
-                            className="h-2 bg-yellow-400 rounded-md"
+                            className={`h-2 bg-yellow-400 ${
+                              points[user.name] === totalPoints
+                                ? "rounded-md"
+                                : " rounded-s-md"
+                            }`}
                             style={{
                               width: `${
                                 (points[user.name] / totalPoints) * 100
@@ -196,7 +201,11 @@ export default function Root() {
                             }}
                           />
                           <div
-                            className="h-2 bg-neutral-600 rounded-e-md"
+                            className={`h-2 bg-neutral-600 ${
+                              points[user.name] == 0
+                                ? "rounded-md"
+                                : " rounded-e-md"
+                            }`}
                             style={{
                               width: `${
                                 ((totalPoints - points[user.name]) /
