@@ -5,13 +5,16 @@ export default function Root() {
   const navigate = useNavigate();
 
   const [users, setUsers] = useState([]);
-  const [bets, setBets] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [bets, setBets] = useState([]);
+  const [receivers, setReceivers] = useState([]);
+
+  const [winners, setWinners] = useState({});
+
   const [points, setPoints] = useState({});
   const [rightAnswers, setRightAnswers] = useState({});
   const [positions, setPositions] = useState({});
   const [totalPoints, setTotalPoints] = useState(0);
-  const [winners, setWinners] = useState({});
 
   const { userName } = useParams();
 
@@ -38,6 +41,14 @@ export default function Root() {
       })
       .then((data) => {
         setCategories(data.categories);
+      });
+
+    await fetch("https://aposcar-api.fly.dev/api/receivers")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setReceivers(data.receivers);
       });
   }
 
@@ -69,9 +80,6 @@ export default function Root() {
         rightAnswersObj[bet.player?.name] += 1;
       }
     });
-
-    console.log(bets);
-    console.log(pointsObj);
 
     setPoints(pointsObj);
     setRightAnswers(rightAnswersObj);
@@ -134,6 +142,16 @@ export default function Root() {
 
     setWinners(winnersObj);
   }, [categories]);
+
+  function getReceiver(movieName, categoryId) {
+    let receiver = receivers.find((receiver) => {
+      return (
+        receiver.movie.title == movieName && receiver.category.id == categoryId
+      );
+    });
+
+    return receiver ? receiver.name : movieName;
+  }
 
   if (!categories.length) {
     return (
@@ -239,7 +257,9 @@ export default function Root() {
                     }
                   >
                     <div className="md:font-semibold">{category.name}</div>
-                    <div>{winners[category.name]}</div>
+                    <div>
+                      {getReceiver(winners[category.name], category.id)}
+                    </div>
                   </div>
                 );
               })}
@@ -251,12 +271,13 @@ export default function Root() {
       <Outlet
         context={[
           users,
+          categories,
           bets,
+          getReceiver,
+          winners,
           points,
           rightAnswers,
           positions,
-          categories,
-          winners,
         ]}
       />
     </div>

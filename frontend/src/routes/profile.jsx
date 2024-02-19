@@ -3,13 +3,22 @@ import {
   useOutletContext,
   Link,
   useParams,
-  useNavigate,
 } from "react-router-dom";
 
 export default function Profile() {
   const { userName } = useParams();
-  const [users, bets, points, rightAnswers, positions, categories, winners] =
-    useOutletContext();
+
+  const [
+    users,
+    categories,
+    bets,
+    getReceiver,
+    winners,
+    points,
+    rightAnswers,
+    positions,
+  ] = useOutletContext();
+
   const [user, setUser] = useState({});
   const [userBets, setUserBets] = useState([]);
 
@@ -89,8 +98,8 @@ export default function Profile() {
               }`}
             >
               <h3 className="font-semibold">{bet.category.name}</h3>
-              <p>{bet.movie.title}</p>
-              <p>{winners[bet.category.name]}</p>
+              <p>{getReceiver(bet.movie.title, bet.category.id)}</p>
+              <p>{getReceiver(winners[bet.category.name], bet.category.id)}</p>
             </div>
           );
         })}
