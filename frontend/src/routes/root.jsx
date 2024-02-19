@@ -13,7 +13,7 @@ export default function Root() {
   const [totalPoints, setTotalPoints] = useState(0);
   const [winners, setWinners] = useState({});
 
-  const { userId } = useParams();
+  const { userName } = useParams();
 
   async function fetchBets() {
     await fetch("https://aposcar-api.fly.dev/api/players")
@@ -70,13 +70,15 @@ export default function Root() {
       }
     });
 
+    console.log(bets);
+    console.log(pointsObj);
+
     setPoints(pointsObj);
     setRightAnswers(rightAnswersObj);
-  }, [bets]);
+  }, [users, bets]);
 
   useEffect(() => {
     if (!points) return;
-    console.log(points);
 
     let usersObj = users;
 
@@ -161,14 +163,14 @@ export default function Root() {
         )}
       </div>
       <div>
-        {!userId && (
+        {!userName && (
           <div className="flex py-6 justify-between gap-6 flex-col lg:flex-row">
             <div className="flex flex-col w-full lg:w-1/2">
               {users.map((user) => {
                 return (
                   <Link
-                    to={`/users/${user.id}`}
-                    key={user.id}
+                    to={`/users/${user.name}`}
+                    key={user.name}
                     className="border bg-neutral-900 border-neutral-800 rounded-xl hover:bg-neutral-800 hover:border-neutral-700 p-2 my-1"
                   >
                     <div className="flex items-center">

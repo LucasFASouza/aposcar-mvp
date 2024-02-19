@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 export default function Profile() {
-  const { userId } = useParams();
+  const { userName } = useParams();
   const [users, bets, points, rightAnswers, positions, categories, winners] =
     useOutletContext();
   const [user, setUser] = useState({});
@@ -15,15 +15,15 @@ export default function Profile() {
 
   useEffect(() => {
     let userObj = users.find((user) => {
-      return user.id == userId;
+      return user.name == userName;
     });
 
     setUser(userObj);
-  }, [users, userId]);
+  }, [users, userName]);
 
   useEffect(() => {
     let userBetsObj = bets.filter((bet) => {
-      return bet.player.id == userId;
+      return bet.player.name == userName;
     });
 
     setUserBets(userBetsObj);
