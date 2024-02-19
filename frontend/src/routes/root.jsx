@@ -217,9 +217,7 @@ export default function Root() {
                                 : " rounded-s-md"
                             }`}
                             style={{
-                              width: `${
-                                (points[user.name] / totalPoints) * 100
-                              }%`,
+                              width: `${totalPoints > 0 ? (points[user.name] / totalPoints) * 100 : 100}%`,
                             }}
                           />
                           <div
