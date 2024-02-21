@@ -57,56 +57,56 @@ export default function Categories() {
           <h1 className="text-xl lg:text-3xl font-semibold pb-4 text-neutral-100">
             About the Aposcar
           </h1>
-          <div className="text-base lg:text-lg flex flex-col gap-4">
+          <div className="text-base lg:text-lg flex flex-col gap-2">
             <p>
               Ever dreamt of having your finger on the pulse of the Oscars? Look
               no further! Aposcar is your go-to site for turning those cinematic
               hunches into winning predictions. Here's the lowdown:
             </p>
+            <h3 className="text-lg lg:text-2xl pt-6 pb-2 font-semibold">
+              🏆 Predict to Win
+            </h3>
             <p>
-              <h3 className="text-lg lg:text-2xl py-2 font-semibold">
-                🏆 Predict to Win
-              </h3>
               Dive into the thrill of Oscar night by casting your bets on who's
               taking home the gold in each category. Main categories pack a
               punch at 10 points, while the others weigh in at a cool 5.
             </p>
+            <h3 className="text-lg lg:text-2xl pt-6 pb-2 font-semibold">
+              📜 Cinephile Status
+            </h3>
             <p>
-              <h3 className="text-lg lg:text-2xl py-2 font-semibold">
-                📜 Cinephile Status
-              </h3>
               No money here, just bragging rights! Win the coveted title of
               "Cinephile Extraordinaire" (and brace yourself for the bullying
               that come with it).
             </p>
+            <h3 className="text-lg lg:text-2xl pt-6 pb-2 font-semibold">
+              👥 Show Off Your Style
+            </h3>
             <p>
-              <h3 className="text-lg lg:text-2xl py-2 font-semibold">
-                👥 Show Off Your Style
-              </h3>
               Elevate your Aposcar profile by linking your Letterboxd account
               and rocking a personalized Picrew pic as your avatar. It's the
               cinephile flex you've been waiting for.
             </p>
+            <h3 className="text-lg lg:text-2xl pt-6 pb-2 font-semibold">
+              📈 Real-Time Leaderboard
+            </h3>
             <p>
-              <h3 className="text-lg lg:text-2xl py-2 font-semibold">
-                📈 Real-Time Leaderboard
-              </h3>
               When the Oscars kick off, our leaderboard comes alive! Watch as it
               updates in real time, revealing the winners and your predictions.
               The race is on!
             </p>
+            <h3 className="text-lg lg:text-2xl pt-6 pb-2 font-semibold">
+              🔄 Change Your Mind
+            </h3>
             <p>
-              <h3 className="text-lg lg:text-2xl py-2 font-semibold">
-                🔄 Change Your Mind
-              </h3>
               Got a last-minute gut feeling? No worries! Let us know, and we'll
               swap out your previous bets faster than you can say "And the Oscar
               goes to...".
             </p>
+            <h3 className="text-lg lg:text-2xl pt-6 pb-2 font-semibold">
+              💻 Contribute to the Fun
+            </h3>
             <p>
-              <h3 className="text-lg lg:text-2xl py-2 font-semibold">
-                💻 Contribute to the Fun
-              </h3>
               Want to be a part of the behind-the-scenes action? Head over to
               our{" "}
               <Link
