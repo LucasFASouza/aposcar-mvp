@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Outlet, Link, useParams, useNavigate } from "react-router-dom";
+import Loading from "../components/loading";
 
 export default function Root() {
   const navigate = useNavigate();
@@ -157,8 +158,8 @@ export default function Root() {
 
   if (!categories.length) {
     return (
-      <div className="bg-neutral-950 text-neutral-300 px-8 py-4 min-h-screen">
-        <h1>Loading...</h1>
+      <div className="bg-neutral-950 text-neutral-300 flex justify-center items-center px-8 py-4 min-h-screen">
+        <Loading />
       </div>
     );
   }
@@ -217,7 +218,11 @@ export default function Root() {
                                 : " rounded-s-md"
                             }`}
                             style={{
-                              width: `${totalPoints > 0 ? (points[user.name] / totalPoints) * 100 : 100}%`,
+                              width: `${
+                                totalPoints > 0
+                                  ? (points[user.name] / totalPoints) * 100
+                                  : 100
+                              }%`,
                             }}
                           />
                           <div

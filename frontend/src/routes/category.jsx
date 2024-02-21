@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useOutletContext, useParams, useNavigate } from "react-router-dom";
 
+import Loading from "../components/loading";
+
 export default function Category() {
   const navigate = useNavigate();
 
@@ -71,7 +73,11 @@ export default function Category() {
   }
 
   if (!category || !nominees.length) {
-    return <div>Loading...</div>;
+    return (
+      <div className="bg-neutral-950 text-neutral-300 flex justify-center items-center px-8 py-4 min-h-screen">
+        <Loading />
+      </div>
+    );
   }
 
   return (
