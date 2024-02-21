@@ -34,7 +34,7 @@ export default function Categories() {
       .then((data) => {
         setUsers(data.players);
       });
-    
+
     await fetch("https://aposcar-api.fly.dev/api/receivers")
       .then((res) => {
         return res.json();
@@ -240,7 +240,7 @@ export default function Categories() {
                   <Link
                     to="https://picrew.me/en/image_maker/644129"
                     target="_blank"
-                    className="hover:text-neutral-50 underline"
+                    className="text-yellow-300 hover:text-yellow-200 underline"
                   >
                     piccrew
                   </Link>

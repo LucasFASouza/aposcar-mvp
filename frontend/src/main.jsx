@@ -6,6 +6,7 @@ import ErrorPage from "./error-page";
 import Category from "./routes/category";
 import Categories from "./routes/categories";
 import Profile from "./routes/profile";
+import About from "./routes/about";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,12 @@ const router = createBrowserRouter([
         element: <Category />,
       },
     ],
+  },
+  ,
+  {
+    path: "/about/",
+    element: <About />,
+    errorElement: <ErrorPage />,
   },
 ]);
 

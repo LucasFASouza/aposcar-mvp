@@ -174,14 +174,20 @@ export default function Root() {
           Aposcar
         </Link>
 
-        {Object.values(winners).every((value) => value === "-") && (
-          <button
-            className="bg-yellow-300 text-neutral-900 py-2 px-6 rounded-md hover:bg-yellow-200 hover:text-neutral-800"
-            onClick={() => navigate("/categories/")}
-          >
-            Place your bets
-          </button>
-        )}
+        <div className="flex gap-4 lg:gap-8 items-center text-sm lg:text-lg">
+          <Link to="/about" className="text-yellow-300 hover:text-yellow-200">
+            About
+          </Link>
+
+          {Object.values(winners).every((value) => value === "-") && (
+            <button
+              className="bg-yellow-300 text-neutral-900 py-2 px-6 rounded-md hover:bg-yellow-200 hover:text-neutral-800"
+              onClick={() => navigate("/categories/")}
+            >
+              Place your bets
+            </button>
+          )}
+        </div>
       </div>
       <div>
         {!userName && (
