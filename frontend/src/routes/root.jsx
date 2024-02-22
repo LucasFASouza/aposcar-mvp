@@ -211,8 +211,10 @@ export default function Root() {
                         />
                         <div className="w-full flex flex-col justify-between gap-3 mr-4">
                           <div className="flex justify-between items-center">
-                            <h3 className="md:text-2xl">{user.name}</h3>
-                            <h3 className="text-sm md:text-lg">
+                            <h3 className="md:text-2xl truncate w-36 sm:w-4/5">
+                              {user.name}
+                            </h3>
+                            <h3 className="text-sm md:text-lg text-right">
                               {points[user.name]} pts
                             </h3>
                           </div>

@@ -52,7 +52,7 @@ export default function Profile() {
           alt={user.name}
           className="rounded-full w-32 h-32 lg:w-48 lg:h-48 object-cover"
         />
-        <h1 className="text-2xl lg:text-4xl font-semibold text-neutral-100 my-2 lg:my-4">
+        <h1 className="text-2xl lg:text-4xl font-semibold text-neutral-100 my-2 lg:my-4 text-center">
           {user.name}
         </h1>
         {user.letterboxd && (
