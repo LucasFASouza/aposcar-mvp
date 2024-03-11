@@ -122,17 +122,19 @@ export default function Root() {
   useEffect(() => {
     let totalPoints = 0;
 
+    console.log(categories);
     categories.forEach((category) => {
       if (category.winner) {
         if (category.type === "Main") {
           totalPoints += 10;
-        } else if (category.type === "Extra") {
+        } else {
           totalPoints += 5;
         }
       }
     });
 
     setTotalPoints(totalPoints);
+    console.log(totalPoints);
   }, [categories]);
 
   useEffect(() => {
