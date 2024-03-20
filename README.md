@@ -4,6 +4,8 @@
 
 Aposcar is a minimal viable product (MVP) web application designed for cinephiles to engage in predicting Oscar winners for various categories. Users can cast their votes, and the platform provides a real-time leaderboard showcasing predictions. Built with Django in the backend and React in the frontend, Aposcar offers a simple and immersive experience for movie enthusiasts eager to participate in the excitement of the Oscars.
 
+![Screens](https://github.com/LucasFASouza/aposcar-mvp/blob/main/Thumb.png?raw=true)
+
 ## Features
 
 * **Oscar Predictions:** Users can vote for their anticipated winners in each Oscar category.
