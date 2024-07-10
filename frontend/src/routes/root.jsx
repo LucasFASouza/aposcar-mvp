@@ -157,14 +157,6 @@ export default function Root() {
     return receiver ? `${receiver.name} (${movieName})` : movieName;
   }
 
-  if (!categories.length) {
-    return (
-      <div className="bg-neutral-950 text-neutral-300 flex justify-center items-center px-8 py-4 min-h-screen">
-        <Loading />
-      </div>
-    );
-  }
-
   return (
     <div className="bg-neutral-950 text-neutral-300 min-h-screen">
       <div className="px-4 md:px-8 py-4">
